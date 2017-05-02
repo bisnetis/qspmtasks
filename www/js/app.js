@@ -61,9 +61,11 @@ function botback(e){
 function setqsbadge(){
     $.getJSON("http://qspropertymaintenance.co.za/qsapp/push.php?getEvents=yes&callback=?",function(json){
       cordova.plugins.notification.badge.set(json.count);
+      push.setApplicationIconBadgeNumber(function() {
+            console.log('success');
+        }, function() {
+            console.log('error');
+        }, json.count);
     });
-    
-    
-    
-    
+
 }
