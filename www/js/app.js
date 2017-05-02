@@ -59,11 +59,11 @@ function botback(e){
     return false;
 }
 function setqsbadge(){
-    $.getJSON("http://qspropertymaintenance.co.za/qsapp/push.php?getEvents=yes&callback=?", function(result){
-        //response data are now in the result variable
-        alert(result);
-        cordova.plugins.notification.badge.set(10);
+    $.getJSON("http://qspropertymaintenance.co.za/qsapp/push.php?getEvents=yes&callback=?",function(json){
+      cordova.plugins.notification.badge.set(json.count);
     });
+    
+    
     
     
 }
