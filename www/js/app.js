@@ -9,7 +9,6 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        //document.addEventListener("backbutton", botback(), false);
     },
     // deviceready Event Handler
     //
@@ -20,7 +19,6 @@ var app = {
             $('#myFrame')[0].contentWindow.historybot.back();
             e.preventDefault();
         }, false);
-        //cordova.plugins.notification.badge.set(10);
         setqsbadge();
         var push = PushNotification.init({
             "android": {
@@ -35,17 +33,17 @@ var app = {
               url: "http://qspropertymaintenance.co.za/qsapp/push.php?tokenID=" + data.registrationId,
               dataType: 'jsonp'
             });
-            //alert(data.registrationId);
+            console.log(JSON.stringify(data.registrationId));
         });
 
         push.on('notification', function(data) {
-            //console.log(JSON.stringify(data));
+            console.log(JSON.stringify(data));
             setqsbadge();
             alert(data.title + ' ' + data.message);
         });
 
         push.on('error', function(e) {
-            //console.log("push error");
+            console.log("push error");
             //alert('error');
         });
     }
@@ -53,11 +51,6 @@ var app = {
 
 app.initialize();
 
-function botback(e){
-    $('#myFrame')[0].contentWindow.historybot.back();
-    e.preventDefault();
-    return false;
-}
 function setqsbadge(){
     $.getJSON("http://qspropertymaintenance.co.za/qsapp/push.php?getEvents=yes&callback=?",function(json){
       cordova.plugins.notification.badge.set(json.count);
@@ -67,5 +60,4 @@ function setqsbadge(){
             console.log('error');
         }, json.count);
     });
-
 }
